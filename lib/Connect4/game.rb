@@ -1,4 +1,4 @@
-require_relative 'scraper.rb'
+# require_relative 'scraper.rb'
 
 
 class Game
@@ -9,6 +9,7 @@ class Game
   # sets game_over to false to not immediately end the game
   # runs show_board
   def initialize
+    print "\n Welcome to Connect Four! Player 1 will be X and Player 2 is O!\n\n "
     @current_turn = 'X'
     # array of arrays of strings separated by spaces i/o commas
     @board = [

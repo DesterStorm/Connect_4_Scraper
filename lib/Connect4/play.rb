@@ -1,9 +1,9 @@
 require_relative 'game.rb'
-require_relative 'scraper.rb'
+# require_relative 'scraper.rb'
 
 class Play_Game
 
-  print "\n Welcome to Connect Four! Player 1 will be X and Player 2 is O!\n\n "
+
 
   # scrape the game objective from wikipedia.com
   objective = Scraper.new
