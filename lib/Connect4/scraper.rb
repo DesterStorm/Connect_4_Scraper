@@ -72,13 +72,12 @@ class Scraper
     until q == 'exit'
       # count = 0
       html = open('https://www.wikihow.com/Win-at-Connect-4')
-      doc ||= Nokogiri::HTML(html)
-      steps = doc.css("#steps_1 div.step").children.map { |name| name.text }.compact
+      doc = Nokogiri::HTML(html)
+      steps = doc.css("ol.steps_list_2").children.map { |name| name.text }.compact
       puts "\n Enter the number of the Pro-tip you'd like to know more about, 'back' to go back to the list of tips or 'play' to practice."
       q = gets.strip.downcase
       q
       # count += 1 until count == q
-      (0...steps.size).each do
         puts "#{steps[q.to_i]}\n"
       # case q
 
@@ -113,7 +112,7 @@ class Scraper
       # else
       #   puts "I don't understand. Type 'back' or 'play' please."
       # end
-    end
+    # end
   end
   end
   end
