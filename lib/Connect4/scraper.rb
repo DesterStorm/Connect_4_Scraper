@@ -1,6 +1,6 @@
 require 'Open-uri'
 require 'Nokogiri'
-# require_relative 'game.rb'
+require_relative 'game.rb'
 
 class Scraper
 
@@ -10,7 +10,7 @@ class Scraper
     html = open('https://www.wikihow.com/Win-at-Connect-4#Learning-Basic-Strategies_sub')
     @doc ||= Nokogiri::HTML(html)
     @steps = doc.css('div.step b.whb').children.map{|name| name.text }.compact
-    @tips = doc.css('#step-id-00 div.step').children.map{|name| name.text }.compact
+    # @tips = doc.css('#step-id-00 div.step').children.map{|name| name.text }.compact
   end
 
   def wiki
@@ -24,25 +24,19 @@ class Scraper
     @steps
   end
 
-
   scraper = Scraper.new
   steps = scraper.get_steps
 
   # lists out the tips available
   (0...steps.size).each do |i|
     puts "Tip: #{i + 1} #{steps[i]}\n"
-    # puts ""
   end
+
+
 
   def call
     step_info
   end
-
-
-
-
-
-
 
   # def list_of_steps
   #   # control the center
@@ -74,15 +68,17 @@ class Scraper
   # asks the user which tip they'd like more info on
   def step_info
     q = nil
-    while q != "exit"
+    until q == "exit"
+      count = 00
       puts "\n Enter the number of the Pro-tip you'd like to know more about, 'back' to go back to the list of tips or 'play' to practice."
       q = gets.strip.downcase
       q
+      count += 1 until count == q
       html = open('https://www.wikihow.com/Win-at-Connect-4')
       doc = Nokogiri::HTML(html)
-      steps = doc.css('div.step').children.map{|name| name.text }.compact
-      (0...steps.size).each do |i|
-        puts "#{steps[i]}\n"
+      steps = doc.css("#step-id-#{count.to_s} div.step").children.map { |name| name.text }.compact
+      (0...steps.size).each do
+        puts "#{steps[count]}\n"
       end
       # case q
       # when "1"
@@ -115,11 +111,10 @@ class Scraper
       #   Game.new
       # else
       #   puts "I don't understand. Type 'back' or 'play' please."
-
     end
-    step_info
+    end
   end
-end
+
 
 # test = Scraper.new
 # test.step1

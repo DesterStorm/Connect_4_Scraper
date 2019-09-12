@@ -1,4 +1,4 @@
-# require_relative 'scraper.rb'
+require_relative 'scraper.rb'
 
 
 class Game
@@ -51,22 +51,6 @@ class Game
     puts "\npick a column from 1-7 to drop your piece #{current_turn}.\nEach column gives a unique tip!"
     column = gets.chomp.to_i
     check_move?(column)
-    lesson = Scraper.new
-    if column == 1
-      lesson.step4
-    elsif column == 2
-      lesson.step2
-    elsif column == 3
-      lesson.step3
-    elsif column == 4
-      lesson.step1
-    elsif column == 5
-      lesson.step5
-    elsif column == 6
-      lesson.step6
-    elsif column == 7
-      lesson.step7
-    end
   end
 
   # combine each board string with a space

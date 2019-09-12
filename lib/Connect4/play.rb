@@ -1,5 +1,5 @@
 require_relative 'game.rb'
-# require_relative 'scraper.rb'
+require_relative 'scraper.rb'
 
 class Play_Game
 
@@ -8,7 +8,8 @@ class Play_Game
   # scrape the game objective from wikipedia.com
   objective = Scraper.new
   objective.wiki
-  objective.call
+  objective.get_steps
+  objective.step_info
 
   # start the game
   Game.new
