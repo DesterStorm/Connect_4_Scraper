@@ -1,18 +1,20 @@
 require_relative 'game.rb'
 require_relative 'scraper.rb'
-
+require_relative 'strategy.rb'
 class Play_Game
 
 
 
   # scrape the game objective from wikipedia.com
   objective = Scraper.new
+  bob = Strategy.new("Learning Basic Strategies")
+  objective.get_info(bob)
   objective.wiki
-  objective.get_steps
-  objective.step_info
+  objective.step_info(bob)
 
   # start the game
-  Game.new
+    Game.new
+
   def play_again?
     print "\nPlay again?(yes/back/close): "
     q = gets.chomp
@@ -29,7 +31,6 @@ class Play_Game
       exit!
     end
   end
-
   play_again?
 end
 

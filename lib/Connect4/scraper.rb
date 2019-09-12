@@ -1,17 +1,22 @@
 require 'Open-uri'
 require 'Nokogiri'
+require 'pry'
 require_relative 'game.rb'
+
 
 class Scraper
 
   attr_accessor :doc, :steps
 
-  def initialize
-    html = open('https://www.wikihow.com/Win-at-Connect-4#Learning-Basic-Strategies_sub')
-    @doc ||= Nokogiri::HTML(html)
-    @steps = doc.css('div.step b.whb').children.map{|name| name.text }.compact
-    # @tips = doc.css('#step-id-00 div.step').children.map{|name| name.text }.compact
-  end
+  # def call
+  #   html = open('https://www.wikihow.com/Win-at-Connect-4#Learning-Basic-Strategies_sub')
+  #   doc ||= Nokogiri::HTML(html)
+  #   steps = doc.css('div.step b.whb').children.map{|name| name.text }.compact
+  #   steps
+  #   (0...steps.size).each do |i|
+  #     puts "Tip: #{i + 1} #{steps[i]}\n"
+  #   end
+  # end
 
   def wiki
     html = open('https://en.wikipedia.org/wiki/Connect_Four')
@@ -19,24 +24,30 @@ class Scraper
     puts doc.css('.templatequote p').text.strip
     puts ' '
   end
-
-  def get_steps
-    @steps
+  def get_info(strat_object)
+    html = open('https://www.wikihow.com/Win-at-Connect-4#Learning-Basic-Strategies_sub')
+    doc = Nokogiri::HTML(html)
+    doc.css('.hasimage').each do |li_tag|
+      hash = {
+          title:  li_tag.css('div.step b').text,
+          instruction:  li_tag.css('div.step').text.split("\n")[1...-1].join(' ')
+      }
+      strat_object.add_step(hash)
+    end
   end
+  # def get_steps
+  #   @steps
+  # end
 
-  scraper = Scraper.new
-  steps = scraper.get_steps
+  # scraper = Scraper.new
+  # steps = scraper.get_steps
+  #
+  # # lists out the tips available
+  # (0...steps.size).each do |i|
+  #   puts "Tip: #{i + 1} #{steps[i]}\n"
+  # end
 
-  # lists out the tips available
-  (0...steps.size).each do |i|
-    puts "Tip: #{i + 1} #{steps[i]}\n"
-  end
 
-
-
-  def call
-    step_info
-  end
 
   # def list_of_steps
   #   # control the center
@@ -66,20 +77,37 @@ class Scraper
   # end
 
   # asks the user which tip they'd like more info on
-  def step_info
+  def step_info(strategy_object)
     q = nil
-
+    strategy_object.steps.each.with_index(1) do |hash, index|
+      puts "#{index}. #{hash[:title]}"
+    end
+    puts "\n Enter the number of the Pro-tip you'd like to know more about, 'back' to go back to the list of tips or 'play' to practice."
     until q == 'exit'
-      # count = 0
-      html = open('https://www.wikihow.com/Win-at-Connect-4')
-      doc = Nokogiri::HTML(html)
-      steps = doc.css("ol.steps_list_2").children.map { |name| name.text }.compact
-      puts "\n Enter the number of the Pro-tip you'd like to know more about, 'back' to go back to the list of tips or 'play' to practice."
       q = gets.strip.downcase
-      q
+      case q
+      when (0..strategy_object.size).include?(q.to_i)
+        puts "#{:instruction}"
+      when 'back'
+        Scraper.new
+      when 'play'
+        play = Play_Game.new
+      else
+        puts "I don't understand. Type 'back' or 'play' please."
+      end
+      # count = 0
+      # html = open('https://www.wikihow.com/Win-at-Connect-4')
+      # doc = Nokogiri::HTML(html)
+      # steps = doc.css("ol.steps_list_2").children.map { |name| name.text.gsub("/\n\s+/", " ") }.compact
+      # puts "\n Enter the number of the Pro-tip you'd like to know more about, 'back' to go back to the list of tips or 'play' to practice."
+
+
+
+      # q
       # count += 1 until count == q
-        puts "#{steps[q.to_i]}\n"
-      # case q
+      #   puts "#{steps[q.to_i]}\n"
+      #
+
 
       # when "1"
       #   html = open('https://www.wikihow.com/Win-at-Connect-4')
@@ -105,13 +133,7 @@ class Scraper
       #   html = open('https://www.wikihow.com/Win-at-Connect-4')
       #   doc = Nokogiri::HTML(html)
       #   puts doc.css('#step-id-05 div.step').text.strip
-      # when "back"
-      #   get_steps
-      # when "play"
-      #   Game.new
-      # else
-      #   puts "I don't understand. Type 'back' or 'play' please."
-      # end
+
     # end
   end
   end
