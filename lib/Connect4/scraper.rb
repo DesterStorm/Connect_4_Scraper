@@ -16,8 +16,8 @@ class Scraper
   def wiki
     html = open('https://en.wikipedia.org/wiki/Connect_Four')
     doc = Nokogiri::HTML(html)
-    puts doc.css(".templatequote p").text.strip
-    puts " "
+    puts doc.css('.templatequote p').text.strip
+    puts ' '
   end
 
   def get_steps
@@ -68,19 +68,20 @@ class Scraper
   # asks the user which tip they'd like more info on
   def step_info
     q = nil
-    until q == "exit"
-      count = 00
+
+    until q == 'exit'
+      # count = 0
+      html = open('https://www.wikihow.com/Win-at-Connect-4')
+      doc ||= Nokogiri::HTML(html)
+      steps = doc.css("div.step").children.map { |name| name.text }.compact
       puts "\n Enter the number of the Pro-tip you'd like to know more about, 'back' to go back to the list of tips or 'play' to practice."
       q = gets.strip.downcase
       q
-      count += 1 until count == q
-      html = open('https://www.wikihow.com/Win-at-Connect-4')
-      doc = Nokogiri::HTML(html)
-      steps = doc.css("#step-id-#{count.to_s} div.step").children.map { |name| name.text }.compact
+      # count += 1 until count == q
       (0...steps.size).each do
-        puts "#{steps[count]}\n"
-      end
-      # case q
+        puts "#{steps[q.to_i]}\n"
+      case q
+
       # when "1"
       #   html = open('https://www.wikihow.com/Win-at-Connect-4')
       #   doc = Nokogiri::HTML(html)
@@ -105,14 +106,16 @@ class Scraper
       #   html = open('https://www.wikihow.com/Win-at-Connect-4')
       #   doc = Nokogiri::HTML(html)
       #   puts doc.css('#step-id-05 div.step').text.strip
-      # when "back"
-      #   list_of_steps
-      # when "play"
-      #   Game.new
-      # else
-      #   puts "I don't understand. Type 'back' or 'play' please."
+      when "back"
+        list_of_steps
+      when "play"
+        Game.new
+      else
+        puts "I don't understand. Type 'back' or 'play' please."
+      end
     end
-    end
+  end
+  end
   end
 
 
