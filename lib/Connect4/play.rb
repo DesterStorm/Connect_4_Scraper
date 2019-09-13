@@ -13,25 +13,7 @@ class Play_Game
   objective.step_info(bob)
 
   # start the game
-    Game.new
-
-  def play_again?
-    print "\nPlay again?(yes/back/close): "
-    q = gets.chomp
-    q
-    case q
-    when q == "yes"
-      print "\n Welcome to Connect Four! Player 1 will be X and Player 2 is O!\n\n "
-      self.wiki
-      Game.new
-    when q == "back"
-      play_game
-    when q == "close"
-      puts "Goodbye!"
-      exit!
-    end
-  end
-  play_again?
+  #   Game.new
 end
 
 Play_Game.new
