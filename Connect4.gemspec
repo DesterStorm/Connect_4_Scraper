@@ -5,8 +5,8 @@ require "Connect4/version"
 Gem::Specification.new do |spec|
   spec.name          = "Connect4"
   spec.version       = Connect4::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
+  spec.authors       = ["Daniel Siekawitch"]
+  spec.email         = ["Daniel.siekawitch@gmail.com"]
 
   spec.summary       = %q{TODO: Write a short summary, because RubyGems requires one.}
   spec.description   = %q{TODO: Write a longer description or delete this line.}
