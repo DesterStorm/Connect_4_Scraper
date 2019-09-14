@@ -4,7 +4,7 @@ connect 4 with tips to play
 
 scrape the game objective from wikipedia.com starts a game of connect 4
 
-Starts with the first player as X. Outputs the board with rows (x) and columns (y). Sets game_over to false to not immediately end the game. Runs show_board. The board is an array of arrays of strings separated by spaces i/o commas. Combine each board string with a space to present the board correctly. Game_over initializes and is set to false. Play is run to start and play the game until game_over: place_piece asks the user to pick a column on the board where they would like to drop their piece and scrapes https://www.wikihow.com/Win-at-Connect-4 to print a tip depending on the column chosen.
+Starts with the first player as X. Outputs the board with rows (x) and columns (y). Sets game_over to false to not immediately end the game. Runs show_board. The board is an array of arrays of strings separated by spaces instead of commas. Combine each board string with a space to present the board correctly. Game_over initializes and is set to false. Play is run to start and play the game until game_over: place_piece asks the user to pick a column on the board where they would like to drop their piece and scrapes https://www.wikihow.com/Win-at-Connect-4 to print a tip depending on the column chosen.
 
 check_for_winner checks if a player has 4 pieces in a row either horizontally, vertically or diagonally game_over is set to true, the play loop ends, and a message is sent to the screen congratulating the winner and asking to play again.
 
